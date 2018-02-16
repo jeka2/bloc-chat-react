@@ -23,11 +23,14 @@ componentDidMount() {
   });
 }
 
+
 render() {
   /*this.state.rooms.map( (val,index) => {
     console.log(val.name);
   });*/
     return (
+      <div>
+    
       <div className="room-list">
         <ul>
           {
@@ -37,6 +40,7 @@ render() {
             })
           }
         </ul>
+      </div>
       </div>
     );
   }
