@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MessageList from './MessageList'
 
 class RoomList extends Component {
   constructor(props) {
@@ -19,7 +20,6 @@ componentDidMount() {
 
   this.roomsRef.on('child_added', snapshot => {
     const room = snapshot.val();
-    console.log(room)
        room.key = snapshot.key;
        this.setState({ rooms: this.state.rooms.concat( room ) })
   });
@@ -28,10 +28,12 @@ componentDidMount() {
 
 createRoom(e) {
   e.preventDefault();
+  if(this.newRoom.value === '') {return}
   this.roomsRef.push({
     name: this.newRoom.value
   });
   this.newRoom.value = '';
+  console.log(this.newRoom.key)
 }
 
 render() {
@@ -56,6 +58,7 @@ render() {
           }
         </ul>
       </div>
+      <MessageList id={this.state.rooms.key} />
       </div>
     );
   }
