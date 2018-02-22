@@ -33,7 +33,7 @@ createRoom(e) {
     name: this.newRoom.value
   });
   this.newRoom.value = '';
-  console.log(this.newRoom.key)
+  console.log(this.state.rooms.key)
 }
 
 render() {
