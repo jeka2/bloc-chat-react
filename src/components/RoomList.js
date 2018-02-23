@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MessageList from './MessageList'
 
 class RoomList extends Component {
   constructor(props) {

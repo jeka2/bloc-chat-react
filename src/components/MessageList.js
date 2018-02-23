@@ -31,7 +31,7 @@ assignMessage (e) {
     message: this.newMessage.value
   });
   console.log(this.props.keyId)
-  //this.setState({ message: {this.props.keyId: this.newMessage.value }})
+  this.setState({ message: {this.props.keyId: this.newMessage.value }})
   this.newMessage.value = '';
 }
 
@@ -41,7 +41,7 @@ render() {
   <div>
     <div className="message-bar">
     {isRoomChosen ? (
-      <form onSubmit={this.assignMessage}>
+      <form onSubmit={this.assignMessage.bind(this)}>
       <input type="text" ref={(value) => this.newMessage = value}/>
       <input type="submit" />
       </form>
