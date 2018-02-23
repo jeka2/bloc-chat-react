@@ -18,6 +18,7 @@ class RoomList extends Component {
 
 componentDidMount() {
 
+
   this.roomsRef.on('child_added', snapshot => {
     const room = snapshot.val();
        room.key = snapshot.key;
@@ -36,6 +37,11 @@ createRoom(e) {
   console.log(this.state.rooms)
 }
 
+handleClick(index) {
+  console.log(this.state.rooms[index])
+  this.props.sendData(this.state.rooms[index].key)
+}
+
 render() {
   /*this.state.rooms.map( (val,index) => {
     console.log(val.name);
@@ -52,14 +58,13 @@ render() {
         <ul>
           {
             this.state.rooms.map( (val,index) => {
-              return <li key={index}>{val.name}</li>
+              return <li key={index} onClick={() => this.handleClick(index)}>{val.name}</li>
 
             })
           }
         </ul>
       </div>
-      <MessageList id={this.state.rooms.key} />
-      </div>
+    </div>
     );
   }
 }

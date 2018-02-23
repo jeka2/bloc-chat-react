@@ -8,15 +8,31 @@ class MessageList extends Component {
     this.assignMessage = this.assignMessage.bind(this)
 
     this.state = {
-      message: '',
-      roomId: this.props.id
+      message: [],
     }
+
+    this.messageRef = this.props.firebase.database().ref('credentials');
+  }
+
+  componentDidMount() {
+
+    
+    this.messageRef.on('child_added', snapshot => {
+      const mssg = snapshot.val();
+      this.setState({ message: this.state.message.concat( mssg ) })
+      console.log(mssg)
+    });
+
   }
 
 assignMessage (e) {
   e.preventDefault();
-  this.setState({message: this.newMessage.value})
-  console.log(this.state)
+  if(this.newMessage.value === '') {return}
+  this.messageRef.push({
+
+  });
+  this.newMessage.value = '';
+  console.log(this.state.rooms)
 }
 
 render() {
