@@ -38,7 +38,6 @@ createRoom(e) {
 }
 
 handleClick(index) {
-  console.log(this.state.rooms[index])
   this.props.sendData(this.state.rooms[index].key)
 }
 

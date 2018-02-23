@@ -21,20 +21,19 @@ class App extends Component {
     super(props);
 
     this.state = {
-      key: [],
+      key: '',
     }
   }
 
   getData(val) {
-    this.setState({ key: this.state.key.concat(val) })
+    this.setState({ key: val })
   }
 
   render() {
-    console.log(this.state.key)
     return (
       <div className="App">
-        <RoomList firebase={firebase} sendData={this.getData}/>
-        <MessageList firebase={firebase} roomId={this.state.roomName}/>
+        <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
+        <MessageList firebase={firebase} keyId={this.state.key}/>
       </div>
     );
   }
