@@ -12,10 +12,13 @@ class MessageList extends Component {
     }
 
     this.messageRef = this.props.firebase.database().ref('credentials');
+    console.log(this.messageRef)
+    //this.messageRef.push({
+      //startedAt: this.firebase.database.ServerValue.TIMESTAMP
+    //})
   }
 
   componentDidMount() {
-
 
     this.messageRef.on('child_added', snapshot => {
       const mssg = snapshot.val();
@@ -27,12 +30,21 @@ class MessageList extends Component {
 assignMessage (e) {
   e.preventDefault();
   if(this.newMessage.value === '') {return}
+
+  var roomInfo = {
+    userName: '',
+    content: this.newMessage.value,
+    sentAt: /*this.messageRef.startedAt*/'',
+    roomId: this.props.keyId
+  }
+
   this.messageRef.push({
-    message: this.newMessage.value
+    message: roomInfo,
   });
-  console.log(this.props.keyId)
-  this.setState({ message: {this.props.keyId: this.newMessage.value }})
+
+  this.setState({ message: this.state.message.concat( roomInfo )})
   this.newMessage.value = '';
+  console.log(this.state)
 }
 
 render() {
