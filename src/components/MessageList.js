@@ -44,10 +44,17 @@ assignMessage (e) {
   this.messageRef.push({
     message: roomInfo,
   });
-
-  this.setState({ message: this.state.message.concat( roomInfo )})
+  var prevState = this.state.message;
+  this.updater(prevState,roomInfo)
+  //this.setState({ message: this.state.message.concat( roomInfo )})
   this.newMessage.value = '';
   this.messageFilter(roomInfo);
+}
+
+updater(prevState, roomInfo) {
+  this.setState((prevState) => {
+    return {message: prevState.concat( roomInfo )}
+  });
 }
 
 messageFilter(roomInfo) {
