@@ -47,14 +47,15 @@ assignMessage (e) {
 
   this.setState({ message: this.state.message.concat( roomInfo )})
   this.newMessage.value = '';
-  this.messageFilter();
+  this.messageFilter(roomInfo);
 }
 
-messageFilter() {
-  var key = this.props.keyId;
+messageFilter(roomInfo) {
+  var key = roomInfo.roomId;
   var messages = this.state.message;
   var filteredArray = fil(messages)
-  console.log(messages[0].roomId)
+  console.log(messages.length)
+  console.log(messages)
 
   function fil(messages, key){
     var arr = [];
