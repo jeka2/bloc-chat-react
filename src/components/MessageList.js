@@ -68,7 +68,7 @@ messageFilter(roomId) {
 }
 
 fill(x) {
-  this.setState({ messagesToShow: this.state.messagesToShow.push(x)})
+  this.setState({ messagesToShow: this.state.messagesToShow.push(x)})23586+9*-
 }
 
 render() {
