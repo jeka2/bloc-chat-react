@@ -86,8 +86,8 @@ render() {
       this.state.messagesToShow.map( (val,index) => {
         return <li key={index}>{val.name}</li>
 
-      )
       })
+    )
     }
     </ul>
     </div>
