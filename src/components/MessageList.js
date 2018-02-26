@@ -49,25 +49,28 @@ assignMessage (e) {
 }
 
 
-messageFilter(roomInfo) {
+messageFilter(roomId) {
   var info = [];
+  this.setState({messagesToShow: []})
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
     Object.entries(data).forEach(
       ([key, value]) => info.push(value)
     );
   });
-  var key = roomInfo;
+  var key = roomId;
 
   for(let i = 0; i < info.length; i++) {
     if(info[i].message.roomId === key) {
-        this.setState({messagesToShow: this.state.messagesToShow.push( info[i].message )})
+        this.setState({messagesToShow: this.state.messagesToShow.push( info[i].message.content )})
       }
     }
+    console.log(this.state.messagesToShow)
 }
 
 render() {
 
+  var room = this.props.keyId;
   const isRoomChosen = this.props.keyId !== '';
   return(
   <div>
@@ -82,13 +85,15 @@ render() {
     <div className="message-scroll">
     <ul>
     {isRoomChosen ? (
-      this.messageFilter(this.props.keyId)
-      this.state.messagesToShow.map( (val,index) => {
+      <div>
+      {this.messageFilter(room)}
+      {this.state.messagesToShow.map( (val,index) => {
         return <li key={index}>{val.name}</li>
 
       })
-    )
     }
+      </div>
+    ) : (null)}
     </ul>
     </div>
   </div>

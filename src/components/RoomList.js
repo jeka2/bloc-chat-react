@@ -41,9 +41,6 @@ handleClick(index) {
 }
 
 render() {
-  /*this.state.rooms.map( (val,index) => {
-    console.log(val.name);
-  });*/
     return (
       <div>
       {/*BEGIN -- capture form input */}
