@@ -44,32 +44,26 @@ assignMessage (e) {
   this.messageRef.push({
     message: roomInfo,
   });
-  var prevState = this.state.message;
-  this.updater(prevState,roomInfo)
-  //this.setState({ message: this.state.message.concat( roomInfo )})
   this.newMessage.value = '';
-  this.messageFilter(roomInfo);
+  this.messageFilter(roomInfo.roomId);
 }
 
-updater(prevState, roomInfo) {
-  this.setState((prevState) => {
-    return {message: prevState.concat( roomInfo )}
-  });
-}
 
 messageFilter(roomInfo) {
-  var key = roomInfo.roomId;
-  var messages = this.state.message;
-  var filteredArray = fil(messages)
-  console.log(messages.length)
-  console.log(messages)
+  var info = [];
+  this.messageRef.on("value", function(snapshot) {
+    var data = snapshot.val();
+    Object.entries(data).forEach(
+      ([key, value]) => info.push(value)
+    );
+  });
+  var key = roomInfo;
 
-  function fil(messages, key){
-    var arr = [];
-    for(let i = 0; i < messages.length; i++) {
-
+  for(let i = 0; i < info.length; i++) {
+    if(info[i].message.roomId === key) {
+        this.setState({messagesToShow: this.state.messagesToShow.push( info[i].message )})
+      }
     }
-  }
 }
 
 render() {
@@ -79,7 +73,7 @@ render() {
   <div>
     <div className="message-bar">
     {isRoomChosen ? (
-      <form onSubmit={this.assignMessage.bind(this)}>
+      <form onSubmit={this.assignMessage}>
       <input type="text" ref={(value) => this.newMessage = value}/>
       <input type="submit" />
       </form>
@@ -87,7 +81,14 @@ render() {
     </div>
     <div className="message-scroll">
     <ul>
+    {isRoomChosen ? (
+      this.messageFilter(this.props.keyId)
+      this.state.messagesToShow.map( (val,index) => {
+        return <li key={index}>{val.name}</li>
 
+      )
+      })
+    }
     </ul>
     </div>
   </div>
