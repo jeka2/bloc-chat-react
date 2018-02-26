@@ -62,15 +62,16 @@ messageFilter(roomId) {
 
   for(let i = 0; i < info.length; i++) {
     if(info[i].message.roomId === key) {
-        this.setState({messagesToShow: this.state.messagesToShow.push( info[i].message.content )})
+      this.fill(info[i].message.content)
       }
     }
-    console.log(this.state.messagesToShow)
+}
+
+fill(x) {
+  this.setState({ messagesToShow: this.state.messagesToShow.push(x)})
 }
 
 render() {
-
-  var room = this.props.keyId;
   const isRoomChosen = this.props.keyId !== '';
   return(
   <div>
@@ -78,22 +79,18 @@ render() {
     {isRoomChosen ? (
       <form onSubmit={this.assignMessage}>
       <input type="text" ref={(value) => this.newMessage = value}/>
-      <input type="submit" />
+      <input type="submit" value="Post Message"/>
       </form>
     ) : (null)}
     </div>
     <div className="message-scroll">
     <ul>
-    {isRoomChosen ? (
-      <div>
-      {this.messageFilter(room)}
-      {this.state.messagesToShow.map( (val,index) => {
-        return <li key={index}>{val.name}</li>
+      {isRoomChosen ? (
+        this.state.messagesToShow.map( (val,index) => {
+          return <li key={index}>{val.name}</li>
 
-      })
-    }
-      </div>
-    ) : (null)}
+        })
+      ) : (null)}
     </ul>
     </div>
   </div>

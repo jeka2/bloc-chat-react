@@ -43,10 +43,11 @@ handleClick(index) {
 render() {
     return (
       <div>
+      <h3><p>Create a room or enter an existing one</p></h3>
       {/*BEGIN -- capture form input */}
       <form onSubmit={this.createRoom}>
         <input type="text" ref={(value) => this.newRoom = value}/>
-        <input type="submit" />
+        <input type="submit" value="Create Room"/>
       </form>
       {/*END -- capture form input */}
       <div className="room-list">
