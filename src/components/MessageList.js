@@ -45,13 +45,13 @@ assignMessage (e) {
     message: roomInfo,
   });
   this.newMessage.value = '';
+  this.setState({messagesToShow: []});
   this.messageFilter(roomInfo.roomId);
 }
 
 
 messageFilter(roomId) {
   var info = [];
-  this.setState({messagesToShow: []})
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
     Object.entries(data).forEach(
