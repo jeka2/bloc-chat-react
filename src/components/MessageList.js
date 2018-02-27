@@ -9,7 +9,8 @@ class MessageList extends Component {
 
     this.state = {
       message: [],
-      messagesToShow: []
+      messagesToShow: [],
+      id: this.props.keyId
     }
 
     this.messageRef = this.props.firebase.database().ref('credentials');
@@ -24,7 +25,6 @@ class MessageList extends Component {
     });
 
   }
-
 /*
 assignMessage (e) {
   e.preventDefault();
@@ -52,7 +52,6 @@ assignMessage (e) {
 */
 
 messageFilter(roomId) {
-  if(this.props.isRoomChosen === false) {return}
   var info = [];
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
@@ -61,17 +60,24 @@ messageFilter(roomId) {
     );
   });
   var key = roomId;
-
+  /*for(let i = 0; i < info.length; i++) {
+    if(info[i].message.roomId === key) {
+      this.updateState(info[i].message.content)
+    }
+  }*/
     info.forEach((val,index) => {
       if(val.message.roomId === key) {
+        console.log(val.message.content)
         this.updateState(val.message.content)
       }
     })
 }
 
 updateState(x) {
-  this.setState({ messagesToShow: this.state.messagesToShow.push(x)})
-  console.log(this.state.messagesToShow)
+  var y = this.state.messagesToShow;
+  y.push(x);
+  //this.setState({ messagesToShow: y})
+  console.log(y)
 }
 
 render() {

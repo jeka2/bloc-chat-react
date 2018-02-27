@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <div className="App">
         <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
-        <MessageList firebase={firebase} isRoomChose={this.state.roomChosen} keyId={this.state.key}/>
+        <MessageList firebase={firebase} roomChosen={this.state.roomChosen} keyId={this.state.key}/>
       </div>
     );
   }
