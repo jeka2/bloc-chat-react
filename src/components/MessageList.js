@@ -10,7 +10,6 @@ class MessageList extends Component {
     this.state = {
       message: [],
       messagesToShow: [],
-      id: this.props.keyId
     }
 
     this.messageRef = this.props.firebase.database().ref('credentials');
@@ -24,6 +23,10 @@ class MessageList extends Component {
       this.setState({ message: this.state.message.concat( mssg ) })
     });
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.messageFilter(nextProps.keyId);
   }
 /*
 assignMessage (e) {
@@ -53,6 +56,8 @@ assignMessage (e) {
 
 messageFilter(roomId) {
   var info = [];
+  this.setState({messagesToShow: []})
+  console.log(this.state.messagesToShow)
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
     Object.entries(data).forEach(
@@ -60,14 +65,9 @@ messageFilter(roomId) {
     );
   });
   var key = roomId;
-  /*for(let i = 0; i < info.length; i++) {
-    if(info[i].message.roomId === key) {
-      this.updateState(info[i].message.content)
-    }
-  }*/
+
     info.forEach((val,index) => {
       if(val.message.roomId === key) {
-        console.log(val.message.content)
         this.updateState(val.message.content)
       }
     })
@@ -76,24 +76,27 @@ messageFilter(roomId) {
 updateState(x) {
   var y = this.state.messagesToShow;
   y.push(x);
-  //this.setState({ messagesToShow: y})
-  console.log(y)
+  this.setState({ messagesToShow: y})
 }
 
 render() {
+  console.log(this.state.messagesToShow)
   return(
   <div>
-    {this.messageFilter(this.props.keyId)}
+
     <div className="message-bar">
 
     </div>
     <div className="message-scroll">
     <ul>
+      {
+        this.state.messagesToShow.map( (val,index) => {
+          return <li key={index}>{val}</li>
 
-        {this.state.messagesToShow.map( (val,index) => {
-          return <li key={index}>{val.name}</li>
-        })}
+        })
+      }
     </ul>
+
     </div>
   </div>
   );
