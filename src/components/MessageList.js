@@ -5,7 +5,7 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
 
-    this.assignMessage = this.assignMessage.bind(this);
+    //this.assignMessage = this.assignMessage.bind(this);
 
     this.state = {
       message: [],
@@ -25,6 +25,7 @@ class MessageList extends Component {
 
   }
 
+/*
 assignMessage (e) {
   e.preventDefault();
   if(this.newMessage.value === '') {return}
@@ -48,9 +49,10 @@ assignMessage (e) {
   this.setState({messagesToShow: []});
   this.messageFilter(roomInfo.roomId);
 }
-
+*/
 
 messageFilter(roomId) {
+  if(this.props.isRoomChosen === false) {return}
   var info = [];
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
@@ -60,37 +62,31 @@ messageFilter(roomId) {
   });
   var key = roomId;
 
-  for(let i = 0; i < info.length; i++) {
-    if(info[i].message.roomId === key) {
-      this.fill(info[i].message.content)
+    info.forEach((val,index) => {
+      if(val.message.roomId === key) {
+        this.updateState(val.message.content)
       }
-    }
+    })
 }
 
-fill(x) {
+updateState(x) {
   this.setState({ messagesToShow: this.state.messagesToShow.push(x)})
+  console.log(this.state.messagesToShow)
 }
 
 render() {
-  const isRoomChosen = this.props.keyId !== '';
   return(
   <div>
+    {this.messageFilter(this.props.keyId)}
     <div className="message-bar">
-    {isRoomChosen ? (
-      <form onSubmit={this.assignMessage}>
-      <input type="text" ref={(value) => this.newMessage = value}/>
-      <input type="submit" value="Post Message"/>
-      </form>
-    ) : (null)}
+
     </div>
     <div className="message-scroll">
     <ul>
-      {isRoomChosen ? (
-        this.state.messagesToShow.map( (val,index) => {
-          return <li key={index}>{val.name}</li>
 
-        })
-      ) : (null)}
+        {this.state.messagesToShow.map( (val,index) => {
+          return <li key={index}>{val.name}</li>
+        })}
     </ul>
     </div>
   </div>

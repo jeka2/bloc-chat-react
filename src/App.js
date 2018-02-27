@@ -22,18 +22,20 @@ class App extends Component {
 
     this.state = {
       key: '',
+      roomChosen: false
     }
   }
 
   getData(val) {
-    this.setState({ key: val })
+    this.setState({ key: val,
+                    roomChosen: true})
   }
 
   render() {
     return (
       <div className="App">
         <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
-        <MessageList firebase={firebase} keyId={this.state.key}/>
+        <MessageList firebase={firebase} isRoomChose={this.state.roomChosen} keyId={this.state.key}/>
       </div>
     );
   }
