@@ -56,8 +56,7 @@ assignMessage (e) {
 
 messageFilter(roomId) {
   var info = [];
-  this.setState({messagesToShow: []})
-  console.log(this.state.messagesToShow)
+  this.setState({messagesToShow: []});
   this.messageRef.on("value", function(snapshot) {
     var data = snapshot.val();
     Object.entries(data).forEach(
@@ -65,22 +64,15 @@ messageFilter(roomId) {
     );
   });
   var key = roomId;
-
-    info.forEach((val,index) => {
-      if(val.message.roomId === key) {
-        this.updateState(val.message.content)
-      }
-    })
+  const filteredMessages = info.filter(item => item.message.roomId === key)
+  this.updateState(filteredMessages)
 }
 
-updateState(x) {
-  var y = this.state.messagesToShow;
-  y.push(x);
-  this.setState({ messagesToShow: y})
+updateState(message) {
+  this.setState({ messagesToShow: message})
 }
 
 render() {
-  console.log(this.state.messagesToShow)
   return(
   <div>
 
@@ -91,7 +83,7 @@ render() {
     <ul>
       {
         this.state.messagesToShow.map( (val,index) => {
-          return <li key={index}>{val}</li>
+          return <li key={index}>{val.message.content}</li>
 
         })
       }
