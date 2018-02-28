@@ -5,14 +5,13 @@ class MessageList extends Component {
   constructor(props) {
     super(props);
 
-    //this.assignMessage = this.assignMessage.bind(this);
-
     this.state = {
       message: [],
       messagesToShow: [],
     }
 
     this.messageRef = this.props.firebase.database().ref('credentials');
+    this.assignMessage = this.assignMessage.bind(this);
 
   }
 
@@ -28,8 +27,7 @@ class MessageList extends Component {
   componentWillReceiveProps(nextProps) {
     this.messageFilter(nextProps.keyId);
   }
-  
-/*
+
 assignMessage (e) {
   e.preventDefault();
   if(this.newMessage.value === '') {return}
@@ -40,7 +38,7 @@ assignMessage (e) {
   var dateTime = date +' '+ time;
 
   var roomInfo = {
-    userName: '',
+    userName: this.props.user.displayName,
     content: this.newMessage.value,
     sentAt: dateTime,
     roomId: this.props.keyId
@@ -53,7 +51,7 @@ assignMessage (e) {
   this.setState({messagesToShow: []});
   this.messageFilter(roomInfo.roomId);
 }
-*/
+
 
 messageFilter(roomId) {
   var info = [];
@@ -78,7 +76,13 @@ render() {
   <div>
 
     <div className="message-bar">
+      {
 
+        <form onSubmit={this.assignMessage}>
+          <input type="text" ref={(value) => this.newMessage = value}/>
+          <input type="submit" value="Add Message"/>
+        </form>
+      }
     </div>
     <div className="message-scroll">
     <ul>

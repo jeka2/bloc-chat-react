@@ -35,6 +35,7 @@ class User extends Component {
     this.props.firebase.auth().signInWithPopup( provider );
     this.setState({loggedIn: true,})
     this.assignName();
+    console.log(this.props.user)
   }
 
   handleSignOutClick(e) {
@@ -42,19 +43,19 @@ class User extends Component {
     this.props.firebase.auth().signOut();
     this.setState({loggedIn: false,
                    name: ''})
+    console.log(this.props.user)
+    this.assignName();
   }
 
   assignName() {
     if(this.props.user !== null) {
       this.setState({ name: this.props.user.displayName})
     }
-    console.log(this.props.user)
   }
 
 
 
   render() {
-    console.log(this.state.name)
     let button = <LogInButton onClick={this.handleSignInClick} />
     if(this.state.loggedIn) {
       button = <LogOutButton onClick={this.handleSignOutClick} />
