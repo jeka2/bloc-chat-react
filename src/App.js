@@ -23,8 +23,8 @@ class App extends Component {
 
     this.state = {
       key: '',
-      userData: [],
-      
+      user: '',
+
     }
   }
 
@@ -32,10 +32,14 @@ class App extends Component {
     this.setState({ key: val,})
   }
 
+  setUserData(userInfo) {
+    this.setState({ user: userInfo, });
+  }
+
   render() {
     return (
       <div className="App">
-        <User firebase={firebase}/>
+        <User firebase={firebase} setUser={this.setUserData.bind(this)} user={this.state.user}/>
         <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
         <MessageList firebase={firebase} roomChosen={this.state.roomChosen} keyId={this.state.key}/>
       </div>
