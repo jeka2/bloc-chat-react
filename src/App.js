@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import User from './components/User';
 import './App.css';
 import * as firebase from 'firebase';
 
@@ -22,18 +23,19 @@ class App extends Component {
 
     this.state = {
       key: '',
-      roomChosen: false
+      userData: [],
+      
     }
   }
 
   getData(val) {
-    this.setState({ key: val,
-                    roomChosen: true})
+    this.setState({ key: val,})
   }
 
   render() {
     return (
       <div className="App">
+        <User firebase={firebase}/>
         <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
         <MessageList firebase={firebase} roomChosen={this.state.roomChosen} keyId={this.state.key}/>
       </div>
