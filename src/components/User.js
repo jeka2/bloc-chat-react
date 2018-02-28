@@ -22,6 +22,10 @@ class User extends Component {
     this.handleSignOutClick = this.handleSignOutClick.bind(this);
   }
 
+  //The userName is Sent Down Below to App.js
+  //
+  //
+  //
   componentDidMount() {
     this.props.firebase.auth().onAuthStateChanged( user => {
       this.props.setUser(user);
@@ -44,7 +48,6 @@ class User extends Component {
     this.setState({loggedIn: false,
                    name: ''})
     console.log(this.props.user)
-    this.assignName();
   }
 
   assignName() {
