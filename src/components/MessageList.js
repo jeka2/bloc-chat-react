@@ -28,7 +28,7 @@ class MessageList extends Component {
   componentWillReceiveProps(nextProps) {
     this.messageFilter(nextProps.keyId);
   }
-  
+
 /*
 assignMessage (e) {
   e.preventDefault();
