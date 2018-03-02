@@ -32,6 +32,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state.key)
     return (
       <div className="App">
         <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>

@@ -37,7 +37,8 @@ createRoom(e) {
 }
 
 handleClick(index) {
-  this.props.sendData(this.state.rooms[index].key)
+  console.log(this.state.rooms)
+  this.props.sendData(this.state.rooms[index].name)
 }
 
 render() {
