@@ -16,11 +16,24 @@ import * as firebase from 'firebase';
 
 //COmment
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      key: '',
+    }
+  }
+
+  getData(val) {
+    this.setState({ key: val })
+  }
+
   render() {
     return (
       <div className="App">
-        <RoomList firebase={firebase}/>
-        <MessageList firebase={firebase}/>
+        <RoomList firebase={firebase} sendData={this.getData.bind(this)}/>
+        <MessageList firebase={firebase} keyId={this.state.key}/>
       </div>
     );
   }

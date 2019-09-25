@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MessageList from './MessageList'
 
 class RoomList extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class RoomList extends Component {
   }
 
 componentDidMount() {
+
 
   this.roomsRef.on('child_added', snapshot => {
     const room = snapshot.val();
@@ -36,30 +36,31 @@ createRoom(e) {
   console.log(this.state.rooms)
 }
 
+handleClick(index) {
+  this.props.sendData(this.state.rooms[index].key)
+}
+
 render() {
-  /*this.state.rooms.map( (val,index) => {
-    console.log(val.name);
-  });*/
     return (
       <div>
+      <h3><p>Create a room or enter an existing one</p></h3>
       {/*BEGIN -- capture form input */}
       <form onSubmit={this.createRoom}>
         <input type="text" ref={(value) => this.newRoom = value}/>
-        <input type="submit" />
+        <input type="submit" value="Create Room"/>
       </form>
       {/*END -- capture form input */}
       <div className="room-list">
         <ul>
           {
             this.state.rooms.map( (val,index) => {
-              return <li key={index}>{val.name}</li>
+              return <li key={index} onClick={() => this.handleClick(index)}>{val.name}</li>
 
             })
           }
         </ul>
       </div>
-      <MessageList id={this.state.rooms.key} />
-      </div>
+    </div>
     );
   }
 }
